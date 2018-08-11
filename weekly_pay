@@ -11,21 +11,21 @@ def paycheck():
     #Error handling for invalid hour entry (i.e. alphabetical entries)
     while True:
         try:
-            hours = int(input("How many hours did you work this week? "))
+            hours = float(input("How many hours did you work this week?\n"))
         except ValueError:
             print("I'm sorry, I can't solve for that. Please enter an integer number of hours.")
             return paycheck()
         else:
             break
     if hours <= 40:  # Computes pay at standard rate
-        pay = int(hours) * standardRate
+        pay = float(hours) * standardRate
         total = pay
     elif hours > 40:  # Computes pay at standard rate plus 1.5x for OT hours
-        time = int(hours) - 40
+        time = float(hours) - 40
         standardPay = 40 * standardRate
         overtimePay = time * overtimeRate
         total = standardPay + overtimePay
 
-    print("You earned approximately $%s before taxes!" % total)
+    print("You earned approximately {} before taxes!".format(total))
 
 paycheck()
