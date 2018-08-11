@@ -8,17 +8,24 @@ overtimeRate = standardRate * 1.5
 
 # Prompts for number of hours worked for the week and equates wage pre-tax.
 def paycheck():
-    hours = input("How many hours did you work this week? ")
-    if int(hours) <= 40: # Computes pay at standard rate
+    #Error handling for invalid hour entry (i.e. alphabetical entries)
+    while True:
+        try:
+            hours = int(input("How many hours did you work this week? "))
+        except ValueError:
+            print("I'm sorry, I can't solve for that. Please enter an integer number of hours.")
+            return paycheck()
+        else:
+            break
+    if hours <= 40:  # Computes pay at standard rate
         pay = int(hours) * standardRate
         total = pay
-    elif float(hours) > 40: #Computes pay at standard rate plus 1.5x for OT hours
+    elif hours > 40:  # Computes pay at standard rate plus 1.5x for OT hours
         time = int(hours) - 40
         standardPay = 40 * standardRate
-        overtimePay = time * overttimeRate
+        overtimePay = time * overtimeRate
         total = standardPay + overtimePay
-    else:
-        print("That is not valid.")
+
     print("You earned approximately $%s before taxes!" % total)
 
 paycheck()
